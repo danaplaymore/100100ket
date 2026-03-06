@@ -1,0 +1,1411 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>버킷리스트 클럽 [백백킷]</title>
+		<meta name="description" content="버킷리스트 소셜 커뮤니티 클럽" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="버킷리스트 클럽 [백백킷]" />
+		<meta property="og:description" content="버킷리스트 소셜 커뮤니티 클럽" />
+		<meta property="og:image" content="og_100100ket.png" />
+		<meta property="og:locale" content="ko_KR" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="버킷리스트 클럽 [백백킷]" />
+		<meta name="twitter:description" content="버킷리스트 소셜 커뮤니티 클럽" />
+		<meta name="twitter:image" content="og_100100ket.png" />
+
+		<link rel="shortcut icon" href="favicon_100100ket.png?v=20260306" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon_100100ket.png?v=20260306" />
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon_100100ket.png?v=20260306" />
+		<link rel="apple-touch-icon" href="favicon_100100ket.png?v=20260306" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style>
+			@font-face {
+				font-family: 'LOTTERIACHAB';
+				src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/LOTTERIACHAB.woff')
+					format('woff');
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			:root {
+				--topbar-height: 74px;
+				--main: #21a564;
+				--point: #e99411;
+				--ink: #141414;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				margin: 0;
+				background: var(--main);
+				color: #000;
+				font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+				line-height: 1.55;
+				padding-top: var(--topbar-height);
+			}
+
+			img {
+				max-width: 100%;
+				display: block;
+			}
+
+			.container {
+				width: min(1120px, 92vw);
+				margin: 0 auto;
+			}
+
+			.topbar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 1000;
+				background: var(--main);
+				height: var(--topbar-height);
+				transition: background-color 0.3s ease;
+			}
+
+			.topbar.scrolled {
+				background: var(--point);
+			}
+
+			.topbar-inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				height: var(--topbar-height);
+				min-height: var(--topbar-height);
+				padding: 0 4px;
+				position: relative;
+			}
+
+			.brand {
+				display: inline-flex;
+				align-items: center;
+				text-decoration: none;
+			}
+
+			.logo {
+				height: 50px;
+				width: auto;
+				object-fit: contain;
+			}
+
+			.top-nav {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.top-nav-link,
+			.mobile-nav-link {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 38px;
+				padding: 6px 12px;
+				border: 2px solid #000;
+				border-radius: 999px;
+				background: #fff;
+				color: #e99411;
+				text-decoration: none;
+				font-family: 'LOTTERIACHAB', 'Pretendard', sans-serif;
+				font-size: 0.92rem;
+				line-height: 1;
+				transition: transform 0.2s ease, filter 0.2s ease;
+			}
+
+			.top-nav-link:hover,
+			.mobile-nav-link:hover {
+				transform: translateY(-1px);
+				filter: saturate(1.05);
+			}
+
+			.menu-toggle {
+				display: none;
+				align-items: center;
+				justify-content: center;
+				width: auto;
+				height: auto;
+				padding: 4px 2px;
+				border: 0;
+				border-radius: 0;
+				background: transparent;
+				color: #000;
+				font-family: 'LOTTERIACHAB', 'Pretendard', sans-serif;
+				font-size: 2rem;
+				line-height: 1;
+				cursor: pointer;
+				transition: filter 0.2s ease;
+			}
+
+			.menu-toggle:hover {
+				filter: saturate(1.05);
+			}
+
+			.mobile-nav {
+				position: fixed;
+				right: 14px;
+				top: calc(var(--topbar-height) + 8px);
+				bottom: auto;
+				z-index: 1200;
+				display: grid;
+				gap: 8px;
+				min-width: 164px;
+				padding: 10px;
+				border: 2px solid #000;
+				border-radius: 14px;
+				background: #e99411;
+				opacity: 0;
+				transform: translateY(8px);
+				pointer-events: none;
+				transition: opacity 0.2s ease, transform 0.2s ease;
+			}
+
+			.mobile-nav.show {
+				opacity: 1;
+				transform: none;
+				pointer-events: auto;
+			}
+
+			.mobile-nav-link {
+				width: 100%;
+			}
+
+			.head-logo {
+				display: inline-block;
+				width: clamp(180px, 28vw, 320px);
+				height: auto;
+				margin-top: 10px;
+			}
+
+			.display,
+			.section-title,
+			.chip,
+			.btn {
+				font-family: 'LOTTERIACHAB', 'Pretendard', sans-serif;
+			}
+
+			.outlined {
+				-webkit-text-stroke: 1px #000;
+				text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
+					-1px -1px 0 #000;
+			}
+
+			.hero-wrap {
+				background: var(--main);
+				margin: 0;
+				padding: 0;
+			}
+
+			.hero-video {
+				position: relative;
+				width: 100%;
+				overflow: hidden;
+				line-height: 0;
+				margin: 0;
+				padding: 0;
+			}
+
+			.hero-video video {
+				width: 100%;
+				height: auto;
+				object-fit: contain;
+				display: block;
+			}
+
+			.video-sound-btn {
+				position: absolute;
+				right: 14px;
+				bottom: 14px;
+				z-index: 2;
+				border: 2px solid #000;
+				border-radius: 999px;
+				width: 44px;
+				height: 44px;
+				padding: 0;
+				background: var(--point);
+				color: #000;
+				font-family: 'Roboto', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+				font-size: 1.1rem;
+				line-height: 1;
+				cursor: pointer;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				transition: transform 0.2s ease, filter 0.2s ease;
+			}
+
+			.video-sound-btn svg {
+				width: 22px;
+				height: 22px;
+				display: block;
+			}
+
+			.video-sound-btn .sound-wave,
+			.video-sound-btn .mute-line {
+				stroke: currentColor;
+			}
+
+			.video-sound-btn[aria-pressed='true'] .mute-line {
+				display: none;
+			}
+
+			.video-sound-btn[aria-pressed='false'] .sound-wave {
+				display: none;
+			}
+
+			.video-sound-btn:hover {
+				filter: brightness(0.96);
+				transform: translateY(-1px) scale(1.03);
+			}
+
+			.hero {
+				padding: clamp(76px, 11vw, 140px) 0 clamp(56px, 9vw, 100px);
+				text-align: center;
+			}
+
+			.chip {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				border: 2px solid #000;
+				border-radius: 999px;
+				padding: 8px 14px;
+				background: #fff;
+				color: var(--main);
+			}
+
+			.display {
+				margin: 16px 0 10px;
+				font-size: clamp(2.2rem, 6vw, 5.2rem);
+				line-height: 1.02;
+				letter-spacing: 0.01em;
+				color: var(--point);
+			}
+
+			.lead {
+				max-width: none;
+				margin: 0 auto;
+				font-size: clamp(1rem, 1.8vw, 1.28rem);
+			}
+
+			.mobile-break {
+				display: none;
+			}
+
+			.desktop-break {
+				display: inline;
+			}
+
+			.lead,
+			.section-sub,
+			.card p,
+			.card li,
+			.timeline-item,
+			.final-cta p,
+			footer {
+				font-family: 'Roboto', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+			}
+
+			.cta-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 12px;
+				margin-top: 28px;
+				justify-content: center;
+			}
+
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 48px;
+				border: 2px solid #000;
+				border-radius: 14px;
+				padding: 10px 16px;
+				color: var(--main);
+				text-decoration: none;
+				font-size: clamp(0.98rem, 2.2vw, 1.1rem);
+				transition: transform 0.25s ease, filter 0.25s ease;
+			}
+
+			.btn:hover {
+				transform: translateY(-2px);
+				filter: saturate(1.06);
+			}
+
+			.btn-main {
+				background: #fff;
+				color: var(--main);
+			}
+
+			.btn-point {
+				background: var(--point);
+			}
+
+			.inline-link-btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				border: 2px solid #000;
+				border-radius: 999px;
+				padding: 2px 10px;
+				margin: 0 2px;
+				background: var(--point);
+				color: #000;
+				text-decoration: none;
+				font-family: 'LOTTERIACHAB', 'Pretendard', sans-serif;
+				font-size: 0.95em;
+				line-height: 1.35;
+				vertical-align: middle;
+				transition: transform 0.25s ease, filter 0.25s ease;
+			}
+
+			.inline-link-btn:hover {
+				transform: translateY(-1px);
+				filter: saturate(1.06);
+			}
+
+			.season-badge {
+				display: inline;
+				background: none;
+				color: var(--point);
+				font-family: 'LOTTERIACHAB', sans-serif;
+				font-size: 120%;
+				font-weight: 700;
+				line-height: 1.35;
+				-webkit-text-stroke: 1px #000;
+				text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
+					-1px -1px 0 #000;
+				vertical-align: middle;
+				margin-right: 8px;
+			}
+
+			section {
+				padding: clamp(74px, 9vw, 110px) 0;
+			}
+
+			.section-title {
+				margin: 0 0 8px;
+				font-size: clamp(1.6rem, 3.8vw, 2.9rem);
+				color: var(--point);
+			}
+
+			.section-sub {
+				margin: 0 0 28px;
+				font-size: clamp(1rem, 2vw, 1.15rem);
+				max-width: 62ch;
+			}
+
+			.who-inline-image {
+				width: 100vw;
+				margin: 14px calc(50% - 50vw) 24px;
+				overflow: hidden;
+				line-height: 0;
+			}
+
+			.who-inline-image img {
+				width: 100%;
+				height: auto;
+				display: block;
+			}
+
+			.grid-2 {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: clamp(14px, 2.1vw, 24px);
+			}
+
+			.card {
+				background: color-mix(in srgb, var(--main), black 12%);
+				border: 2px solid #000;
+				border-radius: 18px;
+				padding: clamp(18px, 2.5vw, 24px);
+			}
+
+			.card h3 {
+				margin: 0 0 10px;
+				font-family: 'LOTTERIACHAB', sans-serif;
+				color: var(--point);
+				font-size: clamp(1.2rem, 3vw, 1.8rem);
+			}
+
+			.card p,
+			.card li {
+				margin: 0;
+				font-size: clamp(0.96rem, 1.8vw, 1.05rem);
+			}
+
+			.card ul {
+				margin: 0;
+				padding-left: 1.2rem;
+				display: grid;
+				gap: 8px;
+			}
+
+			.history-list {
+				display: grid;
+				gap: 14px;
+				position: relative;
+			}
+
+			.history-list::before {
+				content: '';
+				position: absolute;
+				left: 3px;
+				top: 9px;
+				bottom: 9px;
+				width: 4px;
+				box-sizing: border-box;
+				border: 1px solid #000;
+				border-radius: 999px;
+				background: var(--point);
+				z-index: 0;
+			}
+
+			.history-row {
+				display: grid;
+				grid-template-columns: 88px minmax(0, 1fr);
+				column-gap: 16px;
+				align-items: start;
+				position: relative;
+				z-index: 1;
+			}
+
+			.history-details {
+				display: grid;
+				gap: 4px;
+			}
+
+			.history-details p {
+				font-size: 90%;
+				font-weight: 400;
+			}
+
+			.history-details a {
+				color: inherit;
+				text-decoration: underline;
+				text-underline-offset: 2px;
+				font-weight: inherit;
+			}
+
+			.history-year {
+				position: relative;
+				padding-left: 18px;
+				font-family: 'LOTTERIACHAB', sans-serif;
+				font-size: clamp(1rem, 2.2vw, 1.1rem);
+				font-weight: 400;
+				line-height: 1.2;
+				color: var(--point);
+				-webkit-text-stroke: 1px #000;
+				text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
+					-1px -1px 0 #000;
+			}
+
+			.history-year::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0.25em;
+				width: 10px;
+				height: 10px;
+				box-sizing: border-box;
+				border: 1px solid #000;
+				border-radius: 999px;
+				background: var(--point);
+			}
+
+			.timeline {
+				display: grid;
+				gap: 12px;
+			}
+
+			.timeline-item {
+				border: 2px solid #000;
+				border-radius: 14px;
+				padding: 14px 16px;
+				background: color-mix(in srgb, var(--main), black 15%);
+			}
+
+			.timeline-item strong {
+				color: var(--point);
+			}
+
+			.next-item {
+				display: grid;
+				grid-template-rows: auto 1fr;
+				gap: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+
+			.next-media {
+				background: var(--point);
+				border-bottom: 2px solid #000;
+				padding: 10px 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: clamp(140px, 20vw, 220px);
+			}
+
+			.next-thumb {
+				display: block;
+				width: min(360px, 100%);
+				height: auto;
+				margin: 0 auto;
+			}
+
+			.next-content {
+				display: grid;
+				gap: 18px;
+				padding: 16px;
+			}
+
+			.next-meta {
+				display: grid;
+				gap: 4px;
+			}
+
+			.next-meta p {
+				margin: 0;
+				font-size: 90%;
+			}
+
+			.next-apply-btn {
+				margin-top: 8px;
+				width: fit-content;
+			}
+
+			#when .next-item strong {
+				font-family: 'LOTTERIACHAB', sans-serif;
+			}
+
+			#when .next-head {
+				font-size: 120%;
+				line-height: 1.35;
+			}
+
+			#when .next-title {
+				color: var(--point);
+				font-family: 'LOTTERIACHAB', sans-serif;
+				font-weight: 700;
+			}
+
+			.how-flow {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.how-flow .timeline-item {
+				width: auto;
+				white-space: nowrap;
+			}
+
+			.how-sep {
+				color: var(--point);
+				font-family: 'LOTTERIACHAB', 'Pretendard', sans-serif;
+				font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+				font-weight: 700;
+				line-height: 1;
+			}
+
+			.final-cta {
+				text-align: center;
+				border: 2px solid #000;
+				border-radius: 22px;
+				padding: clamp(28px, 5vw, 46px);
+				background: color-mix(in srgb, var(--main), black 14%);
+			}
+
+			.final-cta p {
+				margin: 8px auto 0;
+				max-width: 42ch;
+			}
+
+			footer {
+				padding: 26px 0 40px;
+				text-align: center;
+				font-size: 0.92rem;
+				color: #000;
+			}
+
+			.reveal {
+				opacity: 0;
+				transform: translateY(22px) scale(0.98);
+				filter: blur(6px);
+				transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
+				transition-delay: var(--delay, 0ms);
+				will-change: transform, opacity, filter;
+			}
+
+			.reveal.show {
+				opacity: 1;
+				transform: none;
+				filter: none;
+			}
+
+			@media (min-width: 921px) {
+				.topbar-inner {
+					justify-content: space-between;
+				}
+
+				.menu-toggle,
+				.mobile-nav {
+					display: none;
+				}
+
+				#who .section-sub,
+				#what .section-sub {
+					max-width: none;
+				}
+
+				#what .grid-2 > .card:only-child {
+					grid-column: 1 / -1;
+				}
+
+				#how .how-flow {
+					flex-wrap: nowrap;
+				}
+
+				#how .how-flow .timeline-item {
+					flex: 1 1 0;
+					min-width: 0;
+					white-space: normal;
+					text-align: center;
+				}
+
+				#how .how-sep {
+					flex: 0 0 auto;
+				}
+			}
+
+			@media (max-width: 920px) {
+				body {
+					padding-top: var(--topbar-height);
+				}
+
+				.topbar-inner {
+					height: var(--topbar-height);
+					min-height: var(--topbar-height);
+					padding: 0 2px;
+					justify-content: center;
+				}
+
+				.top-nav {
+					display: none;
+				}
+
+				.menu-toggle {
+					display: inline-flex;
+					position: absolute;
+					right: 2px;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+
+				.mobile-nav {
+					right: 10px;
+					top: calc(var(--topbar-height) + 6px);
+					bottom: auto;
+				}
+
+				.logo {
+					height: 47px;
+					width: auto;
+				}
+
+				.head-logo {
+					width: clamp(150px, 45vw, 240px);
+				}
+
+				.video-sound-btn {
+					right: 10px;
+					bottom: 10px;
+					width: 40px;
+					height: 40px;
+					font-size: 1.08rem;
+				}
+
+				.lead {
+					margin-inline: auto;
+				}
+
+				.mobile-break {
+					display: inline;
+				}
+
+				.desktop-break {
+					display: none;
+				}
+
+				.cta-row {
+					justify-content: center;
+				}
+
+				.grid-2 {
+					grid-template-columns: 1fr;
+				}
+
+				.how-flow {
+					gap: 8px;
+				}
+
+				.history-row {
+					grid-template-columns: 74px minmax(0, 1fr);
+					column-gap: 12px;
+				}
+
+				.history-year {
+					padding-left: 16px;
+					font-size: 0.95rem;
+				}
+
+				.who-inline-image {
+					margin-top: 10px;
+					margin-bottom: 18px;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				html {
+					scroll-behavior: auto;
+				}
+
+				.reveal {
+					transition: none;
+					transform: none;
+					filter: none;
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="topbar">
+			<div class="container topbar-inner">
+				<a class="brand" href="#home" aria-label="백백킷 홈">
+					<img class="logo" src="logo_100100ket_bold.png" alt="백백킷 로고" />
+				</a>
+				<nav class="top-nav" aria-label="상단 메뉴">
+					<a class="top-nav-link outlined" href="#who">WHO</a>
+					<a class="top-nav-link outlined" href="#what">WHAT</a>
+					<a class="top-nav-link outlined" href="#how">HOW</a>
+					<a class="top-nav-link outlined" href="#when">NEXT</a>
+				</nav>
+				<button
+					id="menu-toggle"
+					class="menu-toggle outlined"
+					type="button"
+					aria-expanded="false"
+					aria-controls="mobile-menu"
+					aria-label="메뉴 열기"
+				>
+					☰
+				</button>
+			</div>
+		</header>
+
+		<nav id="mobile-menu" class="mobile-nav" aria-label="모바일 메뉴">
+			<a class="mobile-nav-link outlined" href="#home">HOME</a>
+			<a class="mobile-nav-link outlined" href="#who">WHO</a>
+			<a class="mobile-nav-link outlined" href="#what">WHAT</a>
+			<a class="mobile-nav-link outlined" href="#how">HOW</a>
+			<a class="mobile-nav-link outlined" href="#when">NEXT</a>
+		</nav>
+
+		<section class="hero-wrap" id="home">
+			<div class="hero-video">
+				<video id="hero-video" autoplay muted loop playsinline preload="auto"></video>
+				<button
+					id="video-sound-btn"
+					class="video-sound-btn"
+					type="button"
+					aria-pressed="false"
+					aria-label="사운드 켜기"
+					title="사운드 켜기"
+				>
+					<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+						<path
+							d="M3 10v4h4l5 4V6L7 10H3z"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+						<path
+							class="sound-wave"
+							d="M15.5 9.5c1.5 1.5 1.5 3.5 0 5"
+							fill="none"
+							stroke-width="2"
+							stroke-linecap="round"
+						/>
+						<path
+							class="sound-wave"
+							d="M18.5 7.5c2.6 2.6 2.6 6.4 0 9"
+							fill="none"
+							stroke-width="2"
+							stroke-linecap="round"
+						/>
+						<line
+							class="mute-line"
+							x1="4.5"
+							y1="4.5"
+							x2="19.5"
+							y2="19.5"
+							stroke-width="2"
+							stroke-linecap="round"
+						/>
+					</svg>
+				</button>
+			</div>
+			<div class="container hero">
+				<div>
+					<h1 class="display outlined reveal" style="--delay: 120ms">
+						버킷리스트 클럽 [백백킷]<br />
+						<img class="head-logo" src="logo_100100ket_bold.png" alt="백백킷" />
+					</h1>
+					<p class="lead reveal" style="--delay: 180ms">
+							버킷리스트를 써보고, 이루고,<br class="mobile-break" /> 서로 돕는 소셜 커뮤니티 클럽입니다.
+					</p>
+					<div class="cta-row reveal" style="--delay: 240ms">
+						<a class="btn btn-main outlined" href="https://open.kakao.com/o/gXisd4Wg" target="_blank" rel="noreferrer"
+							>공지방 입장하기</a
+						>
+						<a class="btn btn-point outlined" href="#when"
+							>신청하기</a
+						>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<main>
+			<section id="who">
+				<div class="container">
+					<div>
+						<h2 class="section-title outlined reveal">WHO</h2>
+						<p class="section-sub reveal">
+							모두가 나답게 살아갈 수 있는 세상과 문화를 디자인하는<br class="desktop-break" /><br class="mobile-break" />
+							문화예술단체 &amp; 복합문화공간
+							<a
+								class="inline-link-btn"
+								href="https://link.inpock.co.kr/singlemarks"
+								target="_blank"
+								rel="noreferrer"
+								>[작은따옴표]</a
+							>가 주관하는<br class="mobile-break" />
+							사회문화 프로젝트 [백백킷] 입니다.
+						</p>
+						<article class="card reveal" style="--delay: 90ms">
+							<h3 class="outlined">HISTORY</h3>
+							<div class="history-list">
+								<div class="history-row">
+									<div class="history-year">2024</div>
+									<div class="history-details">
+										<p>로컬 Salon &amp; Cafe Pub 도림천점 오픈</p>
+										<p>100*100 Ket 2기 진행</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2023</div>
+									<div class="history-details">
+										<p>움직이는 나다운 삶 연구소</p>
+										<p>100*100 Ket 1기 진행</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2022</div>
+									<div class="history-details">
+										<p>관악구 청년문화예술 협동조합 설립</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2021</div>
+									<div class="history-details">
+										<p>관악구 대표 청년프로젝트팀 운영</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2019</div>
+									<div class="history-details">
+										<p>
+											<a href="https://youtu.be/ljSD2vtUd2A?si=OYmtaQvWJaCQiazO" target="_blank" rel="noreferrer"
+												>TED 강의 [지금 당신은 당신답게 살고 있나요?]</a
+											>
+										</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2018</div>
+									<div class="history-details">
+										<p>
+											<a href="https://youtu.be/kjJU6N6ZteA?si=UdZpweLbpckjIWHY" target="_blank" rel="noreferrer"
+												>TED 강의 [Are you living as you are?]</a
+											>
+										</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2017</div>
+									<div class="history-details">
+										<p>서울 혁신확동가 양성사업 양성소 사업장 지정</p>
+										<p>[Selfer] 론칭</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2016</div>
+									<div class="history-details">
+										<p>영국 페스티벌 대한민국 대표 참석</p>
+										<p>
+											<a href="https://youtu.be/Ze0Q1Gp6Lig?si=l6WOeHHEluPXw0yy" target="_blank" rel="noreferrer"
+												>TED 강의 [선한 혁명을 꿈꾸다]</a
+											>
+										</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2015</div>
+									<div class="history-details">
+										<p>서울시 공식 로컬 문화예술창작소 지정</p>
+										<p>관악구 대표 청년 문화예술공간 지정</p>
+										<p>서울시 ‘서울 혁신상’ 대상 수상</p>
+										<p>대통령, 미래부장관 ‘우수 창업팀’ 선정</p>
+										<p>창업 오디션 ‘슈퍼끼어로’ 2등 수상</p>
+										<p>관악구청장 표창장 수여</p>
+									</div>
+								</div>
+								<div class="history-row">
+									<div class="history-year">2014</div>
+									<div class="history-details">
+										<p>로컬 문화공간 [작은따옴표] 설립</p>
+										<p>100여개 사회.문화 프로젝트 진행</p>
+									</div>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<section id="what">
+				<div class="container">
+					<h2 class="section-title outlined reveal">WHAT</h2>
+					<p class="section-sub reveal">
+						버킷리스트를 써보면서 인생의 방향성을 정합니다. 서로의 버킷리스트를 보며 영감을
+						얻습니다.<br class="desktop-break" /> 함께하고 싶은 버킷리스트는 전문가를 섭외해서 프로젝트로
+						함께 진행합니다.
+					</p>
+					<div class="grid-2">
+						<article class="card reveal" style="--delay: 70ms">
+							<h3 class="outlined">WHAT WE DID</h3>
+							<p>
+								2023<br />
+								<span class="season-badge">1기</span>- 100명이 함께 100일 동안 버킷리스트 작성하기<br /><br />
+								2024<br />
+								<span class="season-badge">2기</span>- 100명이 함께 100일 동안 버킷리스트 작성하기<br /><br />
+								2025<br />
+								<span class="season-badge">3기</span>- 100명이 함께 100일 동안 버킷리스트 작성하기<br />
+								<span class="season-badge">4기</span>- 제주도 바다에서 바디프로필 촬영하기<br />
+								<span class="season-badge">5기</span>- 매일 글쓰고 책 출판하기<br /><br />
+								2026<br />
+								<span class="season-badge">6기</span>- 매일 실천 가능한 가장 작은 한가지 루틴 만들기
+							</p>
+							<a
+								class="btn btn-main outlined"
+								href="https://www.instagram.com/100100ket"
+								target="_blank"
+								rel="noreferrer"
+								style="margin-top: 16px"
+								>활동 구경하기</a
+							>
+						</article>
+
+						<article class="card reveal" style="--delay: 120ms">
+							<h3 class="outlined">Bucket List</h3>
+							<ul class="bucket-list-checks">
+								<li>동료들과 전국여행 하기</li>
+								<li>반려동물과 전국여행 하기</li>
+								<li>바다에 다이빙하기</li>
+								<li>나무그네 타기</li>
+								<li>녹차잎 따기</li>
+								<li>해남 땅끝에서 전망대 올라가기</li>
+								<li>만년설 보기</li>
+								<li>풀밭에 누워보기</li>
+								<li>스위스 여행하기</li>
+								<li>산티아고 순례길 걷기</li>
+								<li>1년 동안 도시락 배달하기</li>
+								<li>6개국 해외봉사하기</li>
+								<li>다섯 달 동안 감정일기 작성하기</li>
+								<li>노홍철에게 자작곡 불러주기</li>
+								<li>바디프로필 찍기</li>
+								<li>책 100권 읽기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>드로잉 하기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>인디공연 보기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>도자기 만들기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>타로카드 배우기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>크로키 해보기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>맨몽운동 해보기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>크리스마스 파티 하기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>카운트다운 파티 하기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>겨울 바다에 뛰어들기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>아이패드 드로잉 배우기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>댄스 챌린지 릴스 찍기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>제주도 바다에서 바프찍기</li>
+								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>독립출판 하기</li>
+							</ul>
+							<div style="margin-top:18px; font-size:90%; color:#000; font-weight:400; text-align:left;">
+								<span style="color:#e99411;font-weight:bold;">*</span> 표시는 백백킷 프로젝트로 진행되었습니다.
+							</div>
+						</article>
+					</div>
+				</style>
+
+				<style>
+					.bucket-list-checks {
+						list-style: none;
+						padding: 0;
+						margin: 0;
+						display: grid;
+						gap: 8px;
+						font-size: 90%;
+					}
+					.bucket-list-checks li {
+						position: relative;
+						padding-left: 2.1em;
+						font-size: 1.01em;
+						line-height: 1.5;
+						text-decoration: line-through;
+						text-decoration-thickness: 1px;
+						text-decoration-color: #e99411;
+					}
+					.bucket-list-checks li::before {
+						content: '✓';
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						width: 1.2em;
+						height: 1.2em;
+						border: 2px solid #e99411;
+						border-radius: 6px;
+						background: #fff;
+						color: #e99411;
+						font-size: 1em;
+						font-weight: bold;
+						position: absolute;
+						left: 0;
+						top: 0.18em;
+						box-sizing: border-box;
+					}
+				</style>
+				</div>
+			</section>
+
+			<section id="how">
+				<div class="container">
+					<h2 class="section-title outlined reveal">HOW</h2>
+					<div class="how-flow">
+						<div class="timeline-item reveal" style="--delay: 60ms">프로젝트 개설</div>
+						<span class="how-sep reveal" style="--delay: 90ms">&gt;</span>
+						<div class="timeline-item reveal" style="--delay: 120ms">모집(2주)</div>
+						<span class="how-sep reveal" style="--delay: 150ms">&gt;</span>
+						<div class="timeline-item reveal" style="--delay: 180ms">오프라인 OT(1일)</div>
+						<span class="how-sep reveal" style="--delay: 210ms">&gt;</span>
+						<div class="timeline-item reveal" style="--delay: 240ms">활동(8주)</div>
+						<span class="how-sep reveal" style="--delay: 270ms">&gt;</span>
+						<div class="timeline-item reveal" style="--delay: 300ms">피드백 파티(1일)</div>
+					</div>
+					<div class="reveal" style="--delay: 340ms; margin-top: 34px; text-align: center">
+						<p class="section-sub" style="margin: 0; max-width: none">
+							혼자 하기 어려운 버킷리스트가 있나요?<br />
+							백백킷에 제안해주세요.<br />
+							<span style="display:inline-block; height: 18px;"></span><br />
+							<strong>함께할 사람을 모집하고, 필요한 전문가를 연결해<br />
+							모두가 함께 도전하는 프로젝트로 만들어드립니다.</strong>
+						</p>
+						<a class="btn btn-main outlined" href="https://forms.gle/ksbj7bP1a2rJUY9AA" target="_blank" rel="noreferrer" style="margin-top: 32px">요청하기</a>
+					</div>
+				</div>
+			</section>
+
+			<section id="when">
+				<div class="container">
+					<h2 class="section-title outlined reveal">NEXT</h2>
+					<div class="timeline">
+						<div class="timeline-item reveal next-item" style="--delay: 60ms">
+							<div class="next-media" style="position:relative;">
+								<img class="next-thumb" src="07.png" alt="7기 이미지" loading="lazy" />
+								<a href="https://www.fitpong.co.kr/" target="_blank" rel="noreferrer" class="next-mini-btn" title="7기 바로가기">↗</a>
+							</div>
+							<div class="next-content">
+								<div class="next-head"><strong class="outlined">7기</strong> · <span class="next-title outlined">인스타그램 키우기 챌린지</span></div>
+								<div class="next-meta">
+									<p>HOST : 인플루언서 마케팅 회사 핏퐁 CEO 김지영</p>
+									<p>활동기간 : 4/5~5/31(8주)</p>
+									<p>참가비 : 20만원</p>
+									<p>포함내용 : 알고리즘 관련 특강, 인스타그램 계정 기획 및 브랜딩</p>
+								</div>
+								<a class="btn btn-point outlined next-apply-btn" href="https://buly.kr/882Wlqk" target="_blank" rel="noreferrer"
+									>신청하기</a
+								>
+							</div>
+						</div>
+						<div class="timeline-item reveal next-item" style="--delay: 120ms">
+							<div class="next-media" style="position:relative;">
+								<img class="next-thumb" src="08.png" alt="8기 이미지" loading="lazy" />
+								<a href="https://www.instagram.com/heejjeong_j/" target="_blank" rel="noreferrer" class="next-mini-btn" title="8기 바로가기">↗</a>
+							</div>
+							<div class="next-content">
+								<div class="next-head"><strong class="outlined">8기</strong> · <span class="next-title outlined">제주도 바다에서 바디프로필 촬영하기</span></div>
+								<div class="next-meta">
+									<p>HOST : 제주도 체육교사 겸 인플루언서 전희정</p>
+									<p>활동기간 : 6/6~8/29 (12주)</p>
+									<p>참가비 : 30만원</p>
+									<p>포함내용 : 건강 체크 및 관리 컨설팅, 바디프로필 촬영 비용</p>
+								</div>
+								<a class="btn btn-point outlined next-apply-btn" href="https://buly.kr/882Wlqk" target="_blank" rel="noreferrer"
+									>신청하기</a
+								>
+							</div>
+						</div>
+						<div class="timeline-item reveal next-item" style="--delay: 180ms">
+							<div class="next-media" style="position:relative;">
+								<img class="next-thumb" src="09.png" alt="9기 이미지" loading="lazy" />
+								<a href="https://www.instagram.com/kgeon_jeju/" target="_blank" rel="noreferrer" class="next-mini-btn" title="9기 바로가기">↗</a>
+							</style>
+
+							<style>
+								.next-media { position:relative; }
+								.next-mini-btn {
+									position: absolute;
+									right: 12px;
+									bottom: 12px;
+									z-index: 2;
+									display: inline-flex;
+									align-items: center;
+									justify-content: center;
+									width: 26px;
+									height: 26px;
+									font-size: 15px;
+									background: linear-gradient(145deg, #fff 60%, #f7c066 100%);
+									border: 2px solid #e99411;
+									border-radius: 50%;
+									color: #e99411;
+									text-decoration: none;
+									line-height: 1;
+									box-shadow: 0 2px 8px 0 rgba(233,148,17,0.18), 0 1.5px 0 #fff inset;
+									font-weight: bold;
+									transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
+								}
+								.next-mini-btn:hover {
+									background: linear-gradient(145deg, #ffe7c2 60%, #e99411 100%);
+									color: #fff;
+									box-shadow: 0 4px 16px 0 rgba(233,148,17,0.28), 0 1.5px 0 #fff inset;
+									transform: scale(1.13);
+								}
+							</style>
+							</div>
+							<div class="next-content">
+								<div class="next-head"><strong class="outlined">9기</strong> · <span class="next-title outlined">매일 글쓰고 책 출판하기</span></div>
+								<div class="next-meta">
+									<p>HOST : 스튜디오 유랑 출판사 대표 건디 작가</p>
+									<p>홛롱기간 : 9/5~10/31(8주)</p>
+									<p>참가비 : 35만원</p>
+									<p>포함내용 : 책 기획 및 브랜딩, 글쓰기 특강, 출판 및 네이버 작가등록</p>
+								</div>
+								<a class="btn btn-point outlined next-apply-btn" href="https://buly.kr/882Wlqk" target="_blank" rel="noreferrer"
+									>신청하기</a
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="join">
+				<div class="container final-cta reveal">
+					<h2 class="section-title outlined" style="margin-bottom: 10px">같이 시작해볼까요?</h2>
+					<p>
+						혼자 도전하기 어렵다면,<br />
+						백백킷에서 함께 버킷리스트를 현실로 바꿔보세요.
+					</p>
+					<div class="cta-row" style="justify-content: center; margin-top: 22px">
+						<a class="btn btn-main outlined" href="https://open.kakao.com/o/gXisd4Wg" target="_blank" rel="noreferrer"
+							>공지방 입장하기</a
+						>
+						<a class="btn btn-point outlined" href="#when"
+							>신청하기</a
+						>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			© 100100ket · Bucketlist Social Community Club
+		</footer>
+
+		<script>
+			const topbar = document.querySelector('.topbar');
+			const heroVideo = document.querySelector('#hero-video');
+			const videoSoundButton = document.querySelector('#video-sound-btn');
+			const heroVideoQuery = window.matchMedia('(max-width: 920px)');
+			const menuToggleButton = document.querySelector('#menu-toggle');
+			const mobileMenu = document.querySelector('#mobile-menu');
+			const brandHomeLink = document.querySelector('.brand');
+			const mobileMenuLinks = document.querySelectorAll('.mobile-nav-link');
+			let isHeroVideoSoundEnabled = false;
+
+			const closeMobileMenu = () => {
+				if (!menuToggleButton || !mobileMenu) return;
+				mobileMenu.classList.remove('show');
+				menuToggleButton.setAttribute('aria-expanded', 'false');
+				menuToggleButton.setAttribute('aria-label', '메뉴 열기');
+			};
+
+			const toggleMobileMenu = () => {
+				if (!menuToggleButton || !mobileMenu) return;
+				const isMenuOpen = menuToggleButton.getAttribute('aria-expanded') === 'true';
+				if (isMenuOpen) {
+					closeMobileMenu();
+					return;
+				}
+				mobileMenu.classList.add('show');
+				menuToggleButton.setAttribute('aria-expanded', 'true');
+				menuToggleButton.setAttribute('aria-label', '메뉴 닫기');
+			};
+
+			const syncHeroVideoSoundState = () => {
+				if (!heroVideo) return;
+				heroVideo.defaultMuted = !isHeroVideoSoundEnabled;
+				heroVideo.muted = !isHeroVideoSoundEnabled;
+				heroVideo.volume = isHeroVideoSoundEnabled ? 1 : 0;
+				if (videoSoundButton) {
+					const nextLabel = isHeroVideoSoundEnabled ? '사운드 끄기' : '사운드 켜기';
+					videoSoundButton.setAttribute('aria-label', nextLabel);
+					videoSoundButton.setAttribute('title', nextLabel);
+					videoSoundButton.setAttribute('aria-pressed', String(isHeroVideoSoundEnabled));
+				}
+			};
+
+			const playHeroVideoAutoplay = () => {
+				if (!heroVideo) return;
+				syncHeroVideoSoundState();
+				heroVideo.play().catch(() => {});
+			};
+
+			const toggleHeroVideoSound = () => {
+				isHeroVideoSoundEnabled = !isHeroVideoSoundEnabled;
+				playHeroVideoAutoplay();
+			};
+
+			const updateHeroVideoSource = () => {
+				if (!heroVideo) return;
+
+				const nextSrc = heroVideoQuery.matches ? 'video_100100ket.mov' : 'video_100100ket_wide.mov';
+				if (!heroVideoQuery.matches) {
+					closeMobileMenu();
+				}
+				if (heroVideo.dataset.currentSrc !== nextSrc) {
+					heroVideo.src = nextSrc;
+					heroVideo.dataset.currentSrc = nextSrc;
+					heroVideo.load();
+				}
+
+				heroVideo.addEventListener('loadedmetadata', playHeroVideoAutoplay, { once: true });
+				heroVideo.addEventListener('canplay', playHeroVideoAutoplay, { once: true });
+				playHeroVideoAutoplay();
+			};
+
+			const ensureHeroVideoPlayback = () => {
+				playHeroVideoAutoplay();
+			};
+
+			const handleGlobalPointerDown = (event) => {
+				ensureHeroVideoPlayback();
+				if (!menuToggleButton || !mobileMenu) return;
+				if (!heroVideoQuery.matches) return;
+				if (!mobileMenu.classList.contains('show')) return;
+				const target = event.target;
+				if (mobileMenu.contains(target) || menuToggleButton.contains(target)) return;
+				closeMobileMenu();
+			};
+
+			if (videoSoundButton) {
+				videoSoundButton.addEventListener('click', toggleHeroVideoSound);
+			}
+
+			if (menuToggleButton) {
+				menuToggleButton.addEventListener('click', toggleMobileMenu);
+			}
+
+			if (brandHomeLink) {
+				brandHomeLink.addEventListener('click', closeMobileMenu);
+			}
+
+			mobileMenuLinks.forEach((link) => {
+				link.addEventListener('click', closeMobileMenu);
+			});
+
+			window.addEventListener('pointerdown', handleGlobalPointerDown, { passive: true });
+			window.addEventListener('touchstart', ensureHeroVideoPlayback, { passive: true });
+			window.addEventListener('keydown', ensureHeroVideoPlayback);
+			window.addEventListener('load', ensureHeroVideoPlayback);
+
+			updateHeroVideoSource();
+			if (heroVideoQuery.addEventListener) {
+				heroVideoQuery.addEventListener('change', updateHeroVideoSource);
+			} else {
+				heroVideoQuery.addListener(updateHeroVideoSource);
+			}
+
+			const updateTopbarState = () => {
+				if (!topbar) return;
+				topbar.classList.toggle('scrolled', window.scrollY > 8);
+			};
+
+			updateTopbarState();
+			window.addEventListener('scroll', updateTopbarState, { passive: true });
+
+			const revealElements = document.querySelectorAll('.reveal');
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('show');
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{
+					threshold: 0.16,
+					rootMargin: '0px 0px -8% 0px',
+				}
+			);
+
+			revealElements.forEach((element) => observer.observe(element));
+		</script>
+	</body>
+</html>

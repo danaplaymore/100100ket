@@ -1,3 +1,8 @@
+<style>
+@media (max-width: 600px) {
+	.who-break { line-height: 0.5 !important; }
+}
+</style>
 <!doctype html>
 <html lang="ko">
 	<head>
@@ -298,6 +303,18 @@
 				line-height: 1.02;
 				letter-spacing: 0.01em;
 				color: var(--point);
+				white-space: normal;
+			}
+
+			/* 모바일에서 '버킷리스트 클럽 [백백킷]' 1줄 처리 */
+			@media (max-width: 600px) {
+				.display {
+					white-space: nowrap;
+					font-size: min(7vw, 2.1rem);
+				}
+				.display br {
+					display: none;
+				}
 			}
 
 			.lead {
@@ -882,8 +899,11 @@
 			<div class="container hero">
 				<div>
 					<h1 class="display outlined reveal" style="--delay: 120ms">
-						버킷리스트 클럽 [백백킷]<br />
+						버킷리스트 클럽 [백백킷]
+					</h1>
+					<div class="reveal" style="--delay: 140ms; margin-bottom: 8px;">
 						<img class="head-logo" src="logo_100100ket_bold.png" alt="백백킷" />
+					</div>
 					</h1>
 					<p class="lead reveal" style="--delay: 180ms">
 							버킷리스트를 써보고, 이루고,<br class="mobile-break" /> 서로 돕는 소셜 커뮤니티 클럽입니다.
@@ -906,17 +926,33 @@
 					<div>
 						<h2 class="section-title outlined reveal">WHO</h2>
 						<p class="section-sub reveal">
-							모두가 나답게 살아갈 수 있는 세상과 문화를 디자인하는<br class="desktop-break" /><br class="mobile-break" />
-							문화예술단체 &amp; 복합문화공간
-							<a
-								class="inline-link-btn"
-								href="https://link.inpock.co.kr/singlemarks"
-								target="_blank"
-								rel="noreferrer"
-								>[작은따옴표]</a
-							>가 주관하는<br class="mobile-break" />
-							사회문화 프로젝트 [백백킷] 입니다.
+							<span class="who-break who-1">모두가 나답게 살아갈 수 있는 세상과 문화를 디자인하는</span><br class="who-break who-br-1" />
+							<span class="who-break who-2">문화예술단체 &amp; 복합문화공간 <a class="inline-link-btn" href="https://link.inpock.co.kr/singlemarks" target="_blank" rel="noreferrer">[작은따옴표]</a>가</span><br class="who-break who-br-2" />
+							<span class="who-break who-3">주관하는 사회문화 프로젝트 [백백킷] 입니다.</span>
+							<style>
+							@media (max-width: 600px) {
+								.who-break { display: block; }
+								.who-br-1, .who-br-2 { display: block; }
+								.who-1, .who-2, .who-3 { display: block; }
+							}
+							@media (min-width: 601px) {
+								.who-break { display: inline; }
+								.who-br-1 { display: inline; }
+								.who-br-2 { display: none; }
+								.who-1, .who-2 { display: inline; }
+								.who-3 { display: inline; }
+							}
+							</style>
 						</p>
+						<style>
+						@media (max-width: 600px) {
+							.who-mobile-block { display: inline; }
+							.who-mobile-block + br.who-mobile-block { display: block; }
+						}
+						@media (min-width: 601px) {
+							.who-mobile-block + br.who-mobile-block { display: none; }
+						}
+						</style>
 						<article class="card reveal" style="--delay: 90ms">
 							<h3 class="outlined">HISTORY</h3>
 							<div class="history-list">
@@ -1075,7 +1111,7 @@
 								<li><span style="color:#e99411;font-weight:bold;margin-right:0.2em">*</span>독립출판 하기</li>
 							</ul>
 							<div style="margin-top:18px; font-size:90%; color:#000; font-weight:400; text-align:left;">
-								<span style="color:#e99411;font-weight:bold;">*</span> 표시는 백백킷 프로젝트로 진행되었습니다.
+								<span style="color:#e99411; font-weight: bold; font-family: sans-serif;">*</span> <span style="font-family: sans-serif; color: #000; font-weight: 400;">표시는 백백킷 프로젝트로 진행되었습니다.</span>
 							</div>
 						</article>
 					</div>
@@ -1138,7 +1174,7 @@
 					<div class="reveal" style="--delay: 340ms; margin-top: 34px; text-align: center">
 						<p class="section-sub" style="margin: 0; max-width: none">
 							혼자 하기 어려운 버킷리스트가 있나요?<br />
-							백백킷에 제안해주세요.<br />
+								<span style="color:#e99411; -webkit-text-stroke: 1px #000; text-stroke: 1px #000; font-weight:bold; font-family:'LOTTERIACHAB', 'Pretendard', sans-serif; font-size:120%;">백백킷에 제안해주세요.</span><br />
 							<span style="display:inline-block; height: 18px;"></span><br />
 							<strong>함께할 사람을 모집하고, 필요한 전문가를 연결해<br />
 							모두가 함께 도전하는 프로젝트로 만들어드립니다.</strong>
@@ -1155,7 +1191,16 @@
 						<div class="timeline-item reveal next-item" style="--delay: 60ms">
 							<div class="next-media" style="position:relative;">
 								<img class="next-thumb" src="07.png" alt="7기 이미지" loading="lazy" />
-								<a href="https://www.fitpong.co.kr/" target="_blank" rel="noreferrer" class="next-mini-btn" title="7기 바로가기">↗</a>
+								</a>
+									<a href="http://fitpong.co.kr/" target="_blank" rel="noreferrer" class="next-mini-btn-link" style="position:absolute;right:12px;bottom:12px;z-index:2;display:flex;align-items:center;justify-content:center;width:64px;height:64px;">
+											<svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+												<circle cx="20" cy="20" r="18" fill="#e99411" stroke="#141414" stroke-width="3"/>
+												<polyline points="20,25 20,15" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+												<polyline points="17,18 20,15 23,18" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+											</svg>
+										</a>
+								</a>
+								</a>
 							</div>
 							<div class="next-content">
 								<div class="next-head"><strong class="outlined">7기</strong> · <span class="next-title outlined">인스타그램 키우기 챌린지</span></div>
@@ -1173,7 +1218,16 @@
 						<div class="timeline-item reveal next-item" style="--delay: 120ms">
 							<div class="next-media" style="position:relative;">
 								<img class="next-thumb" src="08.png" alt="8기 이미지" loading="lazy" />
-								<a href="https://www.instagram.com/heejjeong_j/" target="_blank" rel="noreferrer" class="next-mini-btn" title="8기 바로가기">↗</a>
+								</a>
+									<a href="https://www.instagram.com/heejjeong_j/" target="_blank" rel="noreferrer" class="next-mini-btn-link" style="position:absolute;right:12px;bottom:12px;z-index:2;display:flex;align-items:center;justify-content:center;width:64px;height:64px;">
+											<svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+												<circle cx="20" cy="20" r="18" fill="#e99411" stroke="#141414" stroke-width="3"/>
+												<polyline points="20,25 20,15" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+												<polyline points="17,18 20,15 23,18" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+											</svg>
+										</a>
+								</a>
+								</a>
 							</div>
 							<div class="next-content">
 								<div class="next-head"><strong class="outlined">8기</strong> · <span class="next-title outlined">제주도 바다에서 바디프로필 촬영하기</span></div>
@@ -1191,7 +1245,16 @@
 						<div class="timeline-item reveal next-item" style="--delay: 180ms">
 							<div class="next-media" style="position:relative;">
 								<img class="next-thumb" src="09.png" alt="9기 이미지" loading="lazy" />
-								<a href="https://www.instagram.com/kgeon_jeju/" target="_blank" rel="noreferrer" class="next-mini-btn" title="9기 바로가기">↗</a>
+								</a>
+									<a href="https://www.instagram.com/kgeon_jeju/" target="_blank" rel="noreferrer" class="next-mini-btn-link" style="position:absolute;right:12px;bottom:12px;z-index:2;display:flex;align-items:center;justify-content:center;width:64px;height:64px;">
+											<svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+												<circle cx="20" cy="20" r="18" fill="#e99411" stroke="#141414" stroke-width="3"/>
+												<polyline points="20,25 20,15" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+												<polyline points="17,18 20,15 23,18" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+											</svg>
+										</a>
+								</a>
+								</a>
 							</style>
 
 							<style>
@@ -1207,22 +1270,28 @@
 									width: 26px;
 									height: 26px;
 									font-size: 15px;
-									background: linear-gradient(145deg, #fff 60%, #f7c066 100%);
-									border: 2px solid #e99411;
-									border-radius: 50%;
-									color: #e99411;
+									background: transparent;
+									border: none;
+									box-shadow: none;
+									padding: 0;
+									color: inherit;
 									text-decoration: none;
 									line-height: 1;
-									box-shadow: 0 2px 8px 0 rgba(233,148,17,0.18), 0 1.5px 0 #fff inset;
 									font-weight: bold;
 									transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
+									.next-mini-btn-icon {
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										width: 64px;
+										height: 64px;
+										position: absolute;
+										right: 12px;
+										bottom: 12px;
+										z-index: 2;
+									}
 								}
-								.next-mini-btn:hover {
-									background: linear-gradient(145deg, #ffe7c2 60%, #e99411 100%);
-									color: #fff;
-									box-shadow: 0 4px 16px 0 rgba(233,148,17,0.28), 0 1.5px 0 #fff inset;
-									transform: scale(1.13);
-								}
+
 							</style>
 							</div>
 							<div class="next-content">
@@ -1262,7 +1331,7 @@
 		</main>
 
 		<footer>
-			© 100100ket · Bucketlist Social Community Club
+			© 100*100ket · Bucketlist Social Community Club
 		</footer>
 
 		<script>
